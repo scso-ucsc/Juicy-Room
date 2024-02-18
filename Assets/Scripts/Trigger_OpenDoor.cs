@@ -6,8 +6,6 @@ public class Trigger_OpenDoor : MonoBehaviour
 {
     //BASED ON "OPENING a DOOR in UNITY on TRIGGER EVENT" - https://www.youtube.com/watch?v=tJiO4cvsHAo
     [SerializeField] private Animator door;
-    //[SerializeField] private bool openDoorTrigger = false;
-    //[SerializeField] private bool closeDoorTrigger = false;
     private bool doorIsOpen = false;
 
     // Start is called before the first frame update
@@ -22,14 +20,14 @@ public class Trigger_OpenDoor : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other){
+    private void OnTriggerEnter(Collider other){ //If door is closed and Player enters trigger area, open door
         if(other.CompareTag("Player") && doorIsOpen == false){
             door.Play("Door_Open", 0, 0f);
             doorIsOpen = true;
         }
     }
 
-    private void OnTriggerExit(Collider other){
+    private void OnTriggerExit(Collider other){ //Once Player exits trigger zone, activate Coroutine closeDoor();
         if(other.CompareTag("Player") && doorIsOpen == true){
             StartCoroutine(closeDoor());
         }
